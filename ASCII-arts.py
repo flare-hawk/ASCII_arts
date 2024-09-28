@@ -112,11 +112,12 @@ def gs_image_to_ascii(img, decode_scheme):
     
     return ascii_art_array
 
-
+'''
 def encode_file_to_base64(file_path):
     with open(file_path, "rb") as file:
         encoded_content = base64.b64encode(file.read()).decode('utf-8')
     return encoded_content
+'''
 
 def ascii_art_to_svg(ascii_art, font_family="Courier New", font_size=16, output_path='ascii_art.svg'):
     '''
@@ -172,6 +173,7 @@ def ascii_art_to_svg(ascii_art, font_family="Courier New", font_size=16, output_
     
     print(f"ASCII art saved as SVG to {output_path}")
 
+"""
 def ascii_art_to_svg(ascii_art, font_family="Courier New", font_size=16, output_path='ascii_art.svg'):
     '''
     Convert ASCII art to an SVG file.
@@ -189,7 +191,7 @@ def ascii_art_to_svg(ascii_art, font_family="Courier New", font_size=16, output_
     
     # Start building the SVG content
     if font_family=="Courier New":
-        svg_content = f"""
+        svg_content = f'''
         <svg xmlns="http://www.w3.org/2000/svg" width="{svg_width}" height="{svg_height}">
             <style>
                 text {{
@@ -197,10 +199,10 @@ def ascii_art_to_svg(ascii_art, font_family="Courier New", font_size=16, output_
                     font-size: {font_size}px;
                 }}
             </style>
-        """
+        '''
     else:
         font_code=encode_file_to_base64(f"{font_family}.ttf")
-        svg_content = f"""
+        svg_content = f'''
         <svg xmlns="http://www.w3.org/2000/svg" width="{svg_width}" height="{svg_height}">
             <style>
                 text {{
@@ -209,7 +211,7 @@ def ascii_art_to_svg(ascii_art, font_family="Courier New", font_size=16, output_
                     src: url("data:application/font-woff;charset=utf-8;base64,{font_code}")
                 }}
             </style>
-        """
+        '''
         
     # Add each ASCII character to the SVG with appropriate coordinates
     for i in range(rows):
@@ -227,7 +229,7 @@ def ascii_art_to_svg(ascii_art, font_family="Courier New", font_size=16, output_
         svg_file.write(svg_content)
     
     print(f"ASCII art saved as SVG to {output_path}")
-
+"""
 
 
 def process_images_in_folder(input_folder, output_folder, gs_decoder, font='Courier New', font_size=10):
@@ -263,12 +265,13 @@ def process_images_in_folder(input_folder, output_folder, gs_decoder, font='Cour
 
 
 
-# Decoder
-with open('brightness_decoder.json', 'r') as file:
-        gs_decoder = json.load(file)
+if __name__=="__main__":
+    # Decoder
+    with open('brightness_decoder.json', 'r') as file:
+            gs_decoder = json.load(file)
 
-input_folder = "./original/"  # Folder with input images
-output_folder = "./ascii_art/"  # Folde
+    input_folder = "./original/"  # Folder with input images
+    output_folder = "./ascii_art/"  # Folde
 
-process_images_in_folder(input_folder, output_folder, gs_decoder, font='Courier New', font_size=10)
-process_images_in_folder(input_folder, output_folder, gs_decoder, font='Anonymous Pro', font_size=10)
+    process_images_in_folder(input_folder, output_folder, gs_decoder, font='Courier New', font_size=10)
+    process_images_in_folder(input_folder, output_folder, gs_decoder, font='Anonymous Pro', font_size=10)
